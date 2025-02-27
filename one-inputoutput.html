@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1 INPUT 1 OUTPUT TEMPLATE</title>
+    <style>
+
+        *{
+            box-sizing: border-box;
+            margin: 0px;
+        }
+
+        body{
+            background-image: url(https://png.pngtree.com/thumb_back/fh260/background/20240522/pngtree-abstract-white-blurred-movie-theater-interior-background-image_15686519.jpg);
+            background-repeat: none;
+            background-size: cover;
+
+
+            background-color: rgb(54, 54, 54);
+            color:white;
+            font-family: 'Courier New', Courier, monospace;
+            padding: 3rem;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+
+        }
+
+        .input{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .output{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 17rem;
+        }
+
+        /* STYLE FOR THE INPUT FIELD */
+        #charInput {
+            width: 20rem;
+            height: fit-content;
+            padding: 1rem;
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: bold;
+            font-size: 1em;
+        }
+
+        /* STYLE FOR THE SUBMIT BUTTON */
+        #submitButton {
+            height: fit-content;
+            padding: 1rem;
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: bold;
+            font-size: 1em;
+            letter-spacing: 0.05em;
+        }
+        #submitButton:hover{
+            background-color: rgb(177, 177, 177);
+        }
+
+        /* STYLE FOR THE IMAGE */
+        #displayedImage {
+            display: none; /* This line is mandatory */
+        }
+
+        img{
+            width: 100%;
+            filter: drop-shadow(10px 10px 10px rgb(50, 50, 50));
+        }
+    </style>
+</head>
+<body>
+
+    <div class="input">
+        <!-- INPUT FIELD FOR 1 CHARACTER -->
+        <input type="text" id="charInput" maxlength="1">
+
+        <!-- BUTTON TO DISPLAY IMAGE -->
+        <button onclick="displayImage()" id="submitButton">What's Sora's Favorite Moive?</button>
+    </div>
+
+    <div class="output">
+        <!-- IMAGE TO DISPLAY -->
+        <img id="displayedImage" src="" alt="Displayed Image">
+    </div>
+
+
+    <!-- Image Display Script Below -->
+    <script>
+        // Array of images
+        // DIRECTIONS: UPDATE THE URLS WITH THE RELATIVE LINKS OF YOUR IMAGES
+        const images = [
+            "https://image.tmdb.org/t/p/original/bJx0V8cRQW9YFcGJo3KTl9mnUXk.jpg", //A
+            "https://image.tmdb.org/t/p/original/pO01sYiYyP2qDlp2bLj2E5IyqC5.jpg", //B
+            "https://image.tmdb.org/t/p/original/tVFRpFw3xTedgPGqxW0AOI8Qhh0.jpg", //C
+            "https://image.tmdb.org/t/p/original/2Pf0Dtw6P9CWshK6GYVXmmq9NFS.jpg", //D
+            "https://image.tmdb.org/t/p/original/ckbh50gIduygU3wtjAim52yiRDE.jpg", //E
+            "https://image.tmdb.org/t/p/original/n5eTY87wowab53RrcU2DqdK5MNB.jpg", //F
+            "https://image.tmdb.org/t/p/original/tFXcEccSQMf3lfhfXKSU9iRBpa3.jpg", //G
+            "https://image.tmdb.org/t/p/original/ygGmAO60t8GyqUo9xYeYxSZAR3b.jpg", //H
+            "https://image.tmdb.org/t/p/original/bLScmGFEeruXTnfLUVqZzie5T2u.jpg", //I
+            "https://image.tmdb.org/t/p/original/7GsM4mtM0worCtIVeiQt28HieeN.jpg", //J
+            "https://image.tmdb.org/t/p/original/pThyQovXQrw2m0s9x82twj48Jq4.jpg", //K
+            "https://image.tmdb.org/t/p/original/2dBjfntdxZ1A1XjjyAAwhn922cL.jpg", //L
+            "https://image.tmdb.org/t/p/original/hA2ple9q4qnwxp3hKVNhroipsir.jpg", //M
+            "https://image.tmdb.org/t/p/original/pDsAAYf6Zn0yiAGJ6lYGs6hoZ4E.jpg", //N
+            "https://image.tmdb.org/t/p/original/cjr4NWURcVN3gW5FlHeabgBHLrY.jpg", //O
+            "https://image.tmdb.org/t/p/original/jGOSeZ5wzh1PSfjTgYkWGGM4DZp.jpg", //P
+            "https://image.tmdb.org/t/p/original/nAU74GmpUk7t5iklEp3bufwDq4n.jpg", //Q
+            "https://image.tmdb.org/t/p/original/xKLM5b6WzfFM3kwDZ7AvOVtoGQN.jpg", //R
+            "https://image.tmdb.org/t/p/original/iiZZdoQBEYBv6id8su7ImL0oCbD.jpg", //S
+            "https://image.tmdb.org/t/p/original/7sqFr9mgd12waluFfajmzLiukE.jpg", //T
+            "https://image.tmdb.org/t/p/original/Z020zFirgLav9IckjYTmjyEwX8.jpg", //U
+            "https://image.tmdb.org/t/p/original/d4qVNJmaFGwctFjkS4RnZ6WPjwp.jpg", //V
+            "https://image.tmdb.org/t/p/original/j5AVKdTm8mG7tjoxIPU5V7riaDy.jpg", //W
+            "https://image.tmdb.org/t/p/original/hNEokmUke0dazoBhttFN0o3L7Xv.jpg", //X
+            "https://image.tmdb.org/t/p/original/n7zgzl5Xmct3WATajhX4Mhotuqg.jpg", //Y
+            "https://image.tmdb.org/t/p/original/dUkAmAyPVqubSBNRjRqCgHggZcK.jpg"  //Z
+        ];
+
+        function displayImage() {
+            const input = document.getElementById("charInput").value.toUpperCase();
+            const imgElement = document.getElementById("displayedImage");
+            
+            // Assign an image based on character (A-Z)
+            const index = input.charCodeAt(0) - 65; // 'A' is 65 in ASCII
+            if (index >= 0 && index < images.length) {
+                imgElement.src = images[index];
+                imgElement.style.display = "block";
+            } else {
+                /* 
+                alert("Please enter a letter between A and Z.");
+                imgElement.style.display = "none";
+                */
+
+                // IF INVALID INPUT IS ENTERED, DISPLAY ALTERNATE IMAGE
+                imgElement.src = "https://image.tmdb.org/t/p/original/cMYCDADoLKLbB83g4WnJegaZimC.jpg"
+                imgElement.style.display = "block";
+            }
+        }
+    </script>
+
+</body>
+</html>
