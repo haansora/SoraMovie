@@ -13,8 +13,10 @@
 
         body{
             background-image: url(https://png.pngtree.com/thumb_back/fh260/background/20240522/pngtree-abstract-white-blurred-movie-theater-interior-background-image_15686519.jpg);
-            background-repeat: none;
             background-size: cover;
+            background-repeat: no-repeat;
+            height: 100vh;
+            overflow: hidden;
 
 
             background-color: rgb(54, 54, 54);
@@ -76,6 +78,14 @@
             width: 100%;
             filter: drop-shadow(10px 10px 10px rgb(50, 50, 50));
         }
+
+
+        @media (max-width: 500px) {
+
+            .input{
+                flex-direction: column;
+            }
+		}
     </style>
 </head>
 <body>
